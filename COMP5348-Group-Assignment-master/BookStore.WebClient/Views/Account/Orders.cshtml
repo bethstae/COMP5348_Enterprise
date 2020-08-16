@@ -1,0 +1,28 @@
+@model BookStore.WebClient.ViewModels.OrdersViewModel
+@{
+    ViewBag.Title = "My Orders";
+}
+<h2>@ViewBag.Title.</h2>
+
+<table>
+    <tr>
+        <th>Order No.</th>
+        <th align="center">Date</th>
+    </tr>
+    @foreach (var lOrder in Model.Orders)
+    {
+    <tr>
+        <td>@lOrder.Id</td>
+        <td>@lOrder.OrderDate</td>
+        <td>
+            @using (Html.BeginForm("CancelOrder", "Account"))
+            {
+            @Html.Hidden("pOrderId", lOrder.Id);
+            @Html.Hidden("pReturnUrl", ViewContext.HttpContext.Request.Url.PathAndQuery);
+            <input type="submit" value="Cancel Order" />
+            }
+        </td>
+    </tr>
+    
+    }
+</table>
